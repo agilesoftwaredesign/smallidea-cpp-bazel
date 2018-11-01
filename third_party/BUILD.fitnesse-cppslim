@@ -1,0 +1,9 @@
+cc_library(
+    name = "fitnessecppslim",
+    srcs = ["SampleFixtures/main.cpp"],
+    hdrs = glob(["fitnesse/cppslim/*.h"]),
+    licenses = ["unencumbered"],
+    linkopts = ["-pthread"],
+    visibility = ["//visibility:public"],
+    deps = ["@boost//:system"],
+)

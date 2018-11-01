@@ -1,0 +1,16 @@
+/.idea/
+/cmake-build-*/
+/build_*/
+*.zip
+/acceptance_spec/FitNesseRoot/RecentChanges.wiki
+/acceptance_spec/FitNesseRoot/files/
+
+# clion folder
+.project/
+
+# bazel generated folder
+bazel-bin
+bazel-genfiles
+bazel-out
+bazel-smallidea-cpp-bazel
+bazel-testlogs

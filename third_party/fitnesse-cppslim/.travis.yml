@@ -1,0 +1,36 @@
+# This is the config file for building fitnesse/cppslim and running its autotest suite with Travis-ci.org
+
+language: cpp
+
+compiler:
+  - gcc
+  # - clang # disable clang for now; clang 3.2 seems to have issues with respect to std::future<> support
+
+env:
+  - BUILD_CONFIG=Debug
+  - BUILD_CONFIG=Release
+
+before_install:
+  # update git submodules (if required)
+  - git submodule update --init --recursive
+
+  # pull in some common scripts for setting up Travis CI build environment
+  - git clone --depth=1 https://github.com/Kosta-Github/travis-setup.git
+  - sudo travis-setup/update-environment.sh
+  - sudo travis-setup/update-gcc-latest.sh
+
+  # update the boost lib to 1.50 (travis defaults to 1.4x)
+  - sudo add-apt-repository -y ppa:libreoffice/ppa
+  - sudo apt-get update -y
+  - sudo apt-get install -y libboost1.54-all-dev
+
+  # install java runtime
+  - sudo apt-get install -y openjdk-7-jre
+
+install:
+  - cmake -H. -BBuild -DCMAKE_BUILD_TYPE=$BUILD_CONFIG
+
+script:
+  - cd Build
+  - make -k && ctest -V --timeout 60
+  - cd ..
